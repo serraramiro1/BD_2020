@@ -1,0 +1,26 @@
+version: "2"
+services:
+  app:
+    build: ./app
+    ports:
+      - "5000:5000"
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ramaora
+      MYSQL_PASSWORD: ramaora
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+      - dbdata:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  dbdata:
